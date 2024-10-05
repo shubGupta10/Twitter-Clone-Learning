@@ -11,11 +11,13 @@ export async function intiServer() {
    app.use(bodyParser.json());
    
    const graphqlServer = new ApolloServer({
+    //typedef is schema
     typeDefs: `
     type Query {
        sayHello: String
     }
     `  ,
+    //based on schema, define resolvers
     resolvers: {
         Query: {
             sayHello: () => `Hello from graphql server`

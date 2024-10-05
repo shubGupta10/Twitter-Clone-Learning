@@ -22,11 +22,13 @@ function intiServer() {
         const app = (0, express_1.default)();
         app.use(body_parser_1.default.json());
         const graphqlServer = new server_1.ApolloServer({
+            //typedef is schema
             typeDefs: `
     type Query {
        sayHello: String
     }
     `,
+            //based on schema, define resolvers
             resolvers: {
                 Query: {
                     sayHello: () => `Hello from graphql server`
