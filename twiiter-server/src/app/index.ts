@@ -2,7 +2,7 @@ import express from "express";
 import {ApolloServer} from '@apollo/server'
 import {expressMiddleware} from '@apollo/server/express4'
 import bodyParser from "body-parser";
-
+import {User} from './user'
 
 
 export async function intiServer() {
@@ -13,14 +13,16 @@ export async function intiServer() {
    const graphqlServer = new ApolloServer({
     //typedef is schema
     typeDefs: `
+    ${User.types}
+
     type Query {
-       sayHello: String
+       ${User.queries}
     }
     `  ,
     //based on schema, define resolvers
     resolvers: {
         Query: {
-            sayHello: () => `Hello from graphql server`
+            ...User.resolvers.queries
         },
     },
    });
